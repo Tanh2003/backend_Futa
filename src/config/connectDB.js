@@ -5,12 +5,12 @@ const { Sequelize } = require('sequelize');
 // Option 3: Passing parameters separately (other dialects)
 
 
-const sequelize = new Sequelize('futa', 'root', '', {
-    host: 'localhost',
+const sequelize = new Sequelize('fx3f09hng2ji_futa', 'fx3f09hng2ji_nhom6', 'nhom6@123456789', {
+    host: '137.59.106.55',
     dialect: 'mysql',
     logging: false
-
 });
+
 
 let connectDB = async() => {
 

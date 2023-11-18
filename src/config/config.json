@@ -1,10 +1,10 @@
 {
 
     "development": {
-        "username": "root",
-        "password": "",
-        "database": "futa",
-        "host": "localhost",
+        "username": "fx3f09hng2ji_nhom6",
+        "password": "nhom6@123456789",
+        "database": "fx3f09hng2ji_futa",
+        "host": "137.59.106.55",
         "dialect": "mysql",
         "logging": false,
         "query": { "raw": true },
