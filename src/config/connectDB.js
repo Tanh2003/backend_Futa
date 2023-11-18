@@ -1,26 +1,40 @@
-const { Sequelize } = require('sequelize');
-
-
+const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
 // Option 3: Passing parameters separately (other dialects)
 
+const sequelize = new Sequelize(
+  process.env.DB_DATABASE_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: "mysql",
+    logging: false,
+    dialectOptions:
+      process.env.DB_SSL === "true"
+        ? {
+            ssl: {
+              require: true,
+              rejectUnauthorized: false,
+            },
+          }
+        : {},
+    query: {
+      raw: true,
+    },
+    timezone: "+07:00",
+  }
+);
 
-const sequelize = new Sequelize('fx3f09hng2ji_futa', 'fx3f09hng2ji_nhom6', 'nhom6@123456789', {
-    host: '137.59.106.55',
-    dialect: 'mysql',
-    logging: false
-});
-
-
-let connectDB = async() => {
-
-    // kiểm tra kết nối DB thành công hay không 
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-
-}
+let connectDB = async () => {
+  // kiểm tra kết nối DB thành công hay không
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
 module.exports = connectDB;
