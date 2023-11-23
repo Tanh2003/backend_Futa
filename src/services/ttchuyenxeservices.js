@@ -1,4 +1,7 @@
 import db from "../models/index";
+
+
+
 let getAllTTchuyenxe = (TTchuyenxeid) => {
   return new Promise(async (resolve, reject) => {
     try {

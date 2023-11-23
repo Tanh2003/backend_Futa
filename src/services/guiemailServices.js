@@ -2,8 +2,14 @@ import db from "../models/index";
 import emailServices from "./emailServices";
 require("dotenv").config();
 
+
+
+
 let guiemail = (data) => {
   return new Promise(async (resolve, reject) => {
+
+    
+
     try {
       if (
         !data.hoten ||
@@ -19,6 +25,7 @@ let guiemail = (data) => {
           errMessage: "missing parameter",
         });
       } else {
+        
         const formatDate = (isoDate) => {
           const dateObject = new Date(isoDate);
           const day = dateObject.getDate();
@@ -31,7 +38,7 @@ let guiemail = (data) => {
           reciverEmail: data.reciverEmail,
           hoten: data.hoten,
           ngaydat: ngaydatne,
-          machuyen: data.machuyen,
+          machuyen: data,machuyen,
           giodi: data.giodi,
           soghe: data.soghe,
           tonggia: data.tonggia,
@@ -50,4 +57,5 @@ let guiemail = (data) => {
 
 module.exports = {
   guiemail: guiemail,
+
 };

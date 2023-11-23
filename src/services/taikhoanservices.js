@@ -11,7 +11,6 @@ const hashtaikhoanmatkhau = async (matkhau) => {
 
 const handletaikhoanLogin = async (sdt, matkhau) => {
   let taikhoanData = {};
-
   try {
     let isExist = await checktaikhoansdt(sdt);
     if (isExist) {
@@ -23,9 +22,6 @@ const handletaikhoanLogin = async (sdt, matkhau) => {
 
       if (taikhoan) {
         let check = bcrypt.compareSync(matkhau, taikhoan.matkhau);
-
-
-
         if (check) {
           taikhoanData.errcode = 0;
           taikhoanData.errMessage = "oke";
@@ -43,7 +39,6 @@ const handletaikhoanLogin = async (sdt, matkhau) => {
       taikhoanData.errcode = 1;
       taikhoanData.errMessage = "sdt không tồn tại vui lòng đăng kí hoặc kiểm tra lại";
     }
-
     return taikhoanData;
   } catch (e) {
     // Xử lý lỗi tại đây nếu có
@@ -182,7 +177,6 @@ let CreateNewtaikhoan=(data)=>{
                     sdt:data.sdt,
                     matkhau:hashmatkhauFromBcrypt,
                     maquyen:data.maquyen,
-                   
                 });
                 resolve({
                     errcode:0,
@@ -194,9 +188,6 @@ let CreateNewtaikhoan=(data)=>{
                     message:'OK'
                 })
             }
-            
-           
-            
         } catch (e) 
         {
             reject(e);

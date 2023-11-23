@@ -1,4 +1,8 @@
+
 import db from "../models/index";
+import emailServices from "./emailServices";
+require("dotenv").config();
+
 let getAllvexe = (vexeid) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -45,7 +49,7 @@ let Createvexe = (data) => {
       
       
       else{
-        await db.vexe.create({
+        const newVexe =   await db.vexe.create({
           sdt:data.sdt,
           giave: data.giave,
           soghe: data.soghe,
@@ -54,7 +58,48 @@ let Createvexe = (data) => {
           thoigianmua:data.thoigianmua,
           matk: data.matk,
         });
-  
+        const newVexeId = newVexe._id || newVexe.id;
+
+        // gui email
+        if (
+          !data.hoten ||
+          !data.reciverEmail ||
+          !data.ngaydat ||
+          !data.giodi ||
+          !data.soghe ||
+          !data.tonggia ||
+          !data.machuyen
+        ) {
+          resolve({
+            errCode: 1,
+            errMessage: "missing parameter",
+          });
+        } else {
+          
+          const formatDate = (isoDate) => {
+            const dateObject = new Date(isoDate);
+            const day = dateObject.getDate();
+            const month = dateObject.getMonth() + 1;
+            const year = dateObject.getFullYear();
+            return `${day}/${month}/${year}`;
+          };
+          let ngaydatne=formatDate(data.ngaydat);
+       let ngaydi=formatDate(data.thoigianbatdau);
+          await emailServices.sendSimpleEmail({
+            reciverEmail: data.reciverEmail,
+            hoten: data.hoten,
+            ngaydat: ngaydatne,
+            machuyen: newVexeId,
+            giodi: data.giodi,
+            soghe: data.soghe,
+            thoigianbatdau:ngaydi,
+            thoigianmua:data.thoigianmua,
+            tonggia: data.tonggia,
+          });
+        }
+
+        // Truyền newVexeId vào hàm guiemail
+        
         resolve({
           errcode: 0,
           data: data,

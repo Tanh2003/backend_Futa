@@ -23,8 +23,10 @@ let sendSimpleEmail = async (dataSend) => {
         <p> Bạn nhận được email này vì đã đặt vé xe trên trang web của chúng tôi</p>
         <p>Thông tin vé xe:</p>
         <div> <b>Họ và tên:${dataSend.hoten} <b/></div>
-        <div> <b> mã chuyến xe:${dataSend.machuyen} <b/></div>
+        <div> <b> mã vé:${dataSend.machuyen} <b/></div>
         <div> <b> Ngày đặt:${dataSend.ngaydat} <b/></div>
+        <div> <b> Ngày bắt đầu đi:${dataSend.thoigianbatdau} <b/></div>
+        <div> <b> Giờ bắt đầu:${dataSend.thoigianmua} <b/></div>
         <div> <b> Số ghế:${dataSend.soghe} <b/></div>
         <div> <b> Số tiền Thanh toán:${dataSend.tonggia} vnd <b/></div>
 <p> Để tra cứu chi tiết vé xe hơn bạn hãy truy cập đường link dưới đây</p>
