@@ -1,4 +1,3 @@
-
 import db from "../models/index";
 import emailServices from "./emailServices";
 require("dotenv").config();
@@ -15,7 +14,7 @@ let getAllvexe = (vexeid) => {
       }
       if (vexeid && vexeid !== "ALL") {
         vexe = await db.vexe.findOne({
-          where: { machuyen: vexeid }, //  userId laf cais tham so truyen vao
+          where: { id: vexeid }, //  userId laf cais tham so truyen vao
           // ẩn mật khẩu
         });
       }
@@ -26,36 +25,27 @@ let getAllvexe = (vexeid) => {
   });
 };
 
-
-
-
-
 let Createvexe = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-
-      if(!data.soghe){
+      if (!data.soghe) {
         resolve({
           errcode: 2,
           errMessage: "Vui lòng chọn ghế",
         });
-      }else if(!data.sdt){
+      } else if (!data.sdt) {
         resolve({
           errcode: 2,
           errMessage: "Vui lòng điền số điện thoại",
         });
-      }
-      
-      
-      
-      else{
-        const newVexe =   await db.vexe.create({
-          sdt:data.sdt,
+      } else {
+        const newVexe = await db.vexe.create({
+          sdt: data.sdt,
           giave: data.giave,
           soghe: data.soghe,
           machuyen: data.machuyen,
-          thoigianbatdau:data.thoigianbatdau,
-          thoigianmua:data.thoigianmua,
+          thoigianbatdau: data.thoigianbatdau,
+          thoigianmua: data.thoigianmua,
           matk: data.matk,
         });
         const newVexeId = newVexe._id || newVexe.id;
@@ -75,7 +65,6 @@ let Createvexe = (data) => {
             errMessage: "missing parameter",
           });
         } else {
-          
           const formatDate = (isoDate) => {
             const dateObject = new Date(isoDate);
             const day = dateObject.getDate();
@@ -83,8 +72,8 @@ let Createvexe = (data) => {
             const year = dateObject.getFullYear();
             return `${day}/${month}/${year}`;
           };
-          let ngaydatne=formatDate(data.ngaydat);
-       let ngaydi=formatDate(data.thoigianbatdau);
+          let ngaydatne = formatDate(data.ngaydat);
+          let ngaydi = formatDate(data.thoigianbatdau);
           await emailServices.sendSimpleEmail({
             reciverEmail: data.reciverEmail,
             hoten: data.hoten,
@@ -92,25 +81,24 @@ let Createvexe = (data) => {
             machuyen: newVexeId,
             giodi: data.giodi,
             soghe: data.soghe,
-            thoigianbatdau:ngaydi,
-            thoigianmua:data.thoigianmua,
+            thoigianbatdau: ngaydi,
+            thoigianmua: data.thoigianmua,
             tonggia: data.tonggia,
           });
         }
 
         // Truyền newVexeId vào hàm guiemail
-        
+
         resolve({
           errcode: 0,
           data: data,
         });
-  
+
         resolve({
           errcode: 0,
           message: "OK",
         });
       }
-     
     } catch (e) {
       reject(e);
     }
@@ -150,7 +138,7 @@ let updatevexeData = (data) => {
         raw: false,
       });
       if (vexe) {
-        vexe.sdt=data.sdt;
+        vexe.sdt = data.sdt;
         vexe.giave = data.giave;
         vexe.soghe = data.soghe;
         vexe.machuyen = data.machuyen;
